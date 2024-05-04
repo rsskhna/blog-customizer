@@ -9,6 +9,7 @@ import {
 	ArticleStateType,
 	backgroundColors,
 	contentWidthArr,
+	defaultArticleState,
 	fontColors,
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -56,7 +57,6 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 				setShowSidebar(false);
 			}
 		}
-
 		document.addEventListener('mousedown', handleOutsideClick);
 
 		return () => {
@@ -75,12 +75,25 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 		});
 	};
 
+	const handleReset = (event: SyntheticEvent) => {
+		event?.preventDefault();
+		props.setState(defaultArticleState);
+		setSelectedFont(defaultArticleState.fontFamilyOption);
+		setSelectedFontColor(defaultArticleState.fontColor);
+		setSelectedFontSize(defaultArticleState.fontSizeOption);
+		setSelectedBackgroundColor(defaultArticleState.backgroundColor);
+		setSelectedContentWidth(defaultArticleState.contentWidth);
+	};
+
 	return (
 		<div ref={ref}>
 			<ArrowButton onClick={handleShowSidebar} isOpen={showSidebar} />
 			{showSidebar && (
 				<aside className={sidebarStyle}>
-					<form className={styles.form} onSubmit={handleSubmit}>
+					<form
+						className={styles.form}
+						onSubmit={handleSubmit}
+						onReset={handleReset}>
 						<Text size={31} weight={800} uppercase>
 							Задайте параметры
 						</Text>

@@ -24,11 +24,11 @@ const App = () => {
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': appState.fontFamilyOption.value,
+					'--font-size': appState.fontSizeOption.value,
+					'--font-color': appState.fontColor.value,
+					'--container-width': appState.contentWidth.value,
+					'--bg-color': appState.backgroundColor.value,
 				} as CSSProperties
 			}>
 			<ArticleParamsForm state={appState} setState={setAppState} />
