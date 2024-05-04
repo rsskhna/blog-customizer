@@ -25,7 +25,7 @@ type TArticleParamsForm = {
 };
 
 export const ArticleParamsForm = (props: TArticleParamsForm) => {
-	const [showSidebar, setShowSidebar] = useState(false);
+	const [sidebarState, setSidebarState] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const [selectedFont, setSelectedFont] = useState<OptionType>(
@@ -43,18 +43,20 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 		props.state.contentWidth
 	);
 
-	const handleShowSidebar = () => {
-		setShowSidebar(!showSidebar);
+	const handleSidebarState = () => {
+		setSidebarState(!sidebarState);
 	};
 
 	const sidebarStyle = clsx(styles.container, {
-		[styles.container_open]: showSidebar,
+		[styles.container_open]: sidebarState,
 	});
 
 	useEffect(() => {
+		if (!sidebarState) return;
+
 		function handleOutsideClick(event: MouseEvent) {
 			if (ref.current && !ref.current.contains(event.target as Node)) {
-				setShowSidebar(false);
+				setSidebarState(false);
 			}
 		}
 
@@ -88,7 +90,7 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 
 	return (
 		<div ref={ref}>
-			<ArrowButton onClick={handleShowSidebar} isOpen={showSidebar} />
+			<ArrowButton onClick={handleSidebarState} isOpen={sidebarState} />
 			<aside className={sidebarStyle}>
 				<form
 					className={styles.form}
