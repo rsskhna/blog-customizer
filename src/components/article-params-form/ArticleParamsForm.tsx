@@ -3,7 +3,7 @@ import { Button } from 'components/button';
 import { Select } from 'components/select';
 
 import styles from './ArticleParamsForm.module.scss';
-import {useEffect, useRef, useState} from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import {
 	ArticleStateType,
@@ -16,30 +16,30 @@ import {
 } from 'src/constants/articleProps';
 import { Separator } from 'components/separator';
 import { RadioGroup } from 'components/radio-group';
-import {useOutsideClickClose} from "components/select/hooks/useOutsideClickClose";
+import { Text } from 'components/text';
 
 type TArticleParamsForm = {
 	state: ArticleStateType;
 	setState: (param: ArticleStateType) => void;
 };
 
-export const ArticleParamsForm = ({state, setState}: TArticleParamsForm) => {
+export const ArticleParamsForm = (props: TArticleParamsForm) => {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const [selectedFont, setSelectedFont] = useState<OptionType>(
-		state.fontFamilyOption
+		props.state.fontFamilyOption
 	);
 	const [selectedFontSize, setSelectedFontSize] = useState<OptionType>(
-		state.fontSizeOption
+		props.state.fontSizeOption
 	);
 	const [selectedFontColor, setSelectedFontColor] = useState<OptionType>(
-		state.fontColor
+		props.state.fontColor
 	);
 	const [selectedBackgroundColor, setSelectedBackgroundColor] =
-		useState<OptionType>(state.backgroundColor);
+		useState<OptionType>(props.state.backgroundColor);
 	const [selectedContentWidth, setSelectedContentWidth] = useState<OptionType>(
-		state.contentWidth
+		props.state.contentWidth
 	);
 
 	const handleShowSidebar = () => {
@@ -53,7 +53,7 @@ export const ArticleParamsForm = ({state, setState}: TArticleParamsForm) => {
 	useEffect(() => {
 		function handleOutsideClick(event: MouseEvent) {
 			if (ref.current && !ref.current.contains(event.target as Node)) {
-				handleShowSidebar();
+				setShowSidebar(false);
 			}
 		}
 
@@ -64,12 +64,27 @@ export const ArticleParamsForm = ({state, setState}: TArticleParamsForm) => {
 		};
 	}, [ref.current]);
 
+	const handleSubmit = (event: SyntheticEvent) => {
+		event?.preventDefault();
+		props.setState({
+			fontFamilyOption: selectedFont,
+			fontColor: selectedFontColor,
+			backgroundColor: selectedBackgroundColor,
+			contentWidth: selectedContentWidth,
+			fontSizeOption: selectedFontSize,
+		});
+	};
+
 	return (
 		<div ref={ref}>
 			<ArrowButton onClick={handleShowSidebar} isOpen={showSidebar} />
 			{showSidebar && (
 				<aside className={sidebarStyle}>
-					<form className={styles.form}>
+					<form className={styles.form} onSubmit={handleSubmit}>
+						<Text size={31} weight={800} uppercase>
+							Задайте параметры
+						</Text>
+
 						<Select
 							title='Шрифт'
 							options={fontFamilyOptions}
