@@ -57,6 +57,7 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 				setShowSidebar(false);
 			}
 		}
+
 		document.addEventListener('mousedown', handleOutsideClick);
 
 		return () => {
@@ -88,61 +89,59 @@ export const ArticleParamsForm = (props: TArticleParamsForm) => {
 	return (
 		<div ref={ref}>
 			<ArrowButton onClick={handleShowSidebar} isOpen={showSidebar} />
-			{showSidebar && (
-				<aside className={sidebarStyle}>
-					<form
-						className={styles.form}
-						onSubmit={handleSubmit}
-						onReset={handleReset}>
-						<Text size={31} weight={800} uppercase>
-							Задайте параметры
-						</Text>
+			<aside className={sidebarStyle}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit}
+					onReset={handleReset}>
+					<Text size={31} weight={800} uppercase>
+						Задайте параметры
+					</Text>
 
-						<Select
-							title='Шрифт'
-							options={fontFamilyOptions}
-							selected={selectedFont}
-							onChange={setSelectedFont}
-						/>
+					<Select
+						title='Шрифт'
+						options={fontFamilyOptions}
+						selected={selectedFont}
+						onChange={setSelectedFont}
+					/>
 
-						<RadioGroup
-							title='Размер шрифта'
-							options={fontSizeOptions}
-							selected={selectedFontSize}
-							onChange={setSelectedFontSize}
-							name='size'
-						/>
+					<RadioGroup
+						title='Размер шрифта'
+						options={fontSizeOptions}
+						selected={selectedFontSize}
+						onChange={setSelectedFontSize}
+						name='size'
+					/>
 
-						<Select
-							title='Цвет шрифта'
-							options={fontColors}
-							selected={selectedFontColor}
-							onChange={setSelectedFontColor}
-						/>
+					<Select
+						title='Цвет шрифта'
+						options={fontColors}
+						selected={selectedFontColor}
+						onChange={setSelectedFontColor}
+					/>
 
-						<Separator />
+					<Separator />
 
-						<Select
-							title='Цвет фона'
-							options={backgroundColors}
-							selected={selectedBackgroundColor}
-							onChange={setSelectedBackgroundColor}
-						/>
+					<Select
+						title='Цвет фона'
+						options={backgroundColors}
+						selected={selectedBackgroundColor}
+						onChange={setSelectedBackgroundColor}
+					/>
 
-						<Select
-							title='Ширина контента'
-							options={contentWidthArr}
-							selected={selectedContentWidth}
-							onChange={setSelectedContentWidth}
-						/>
+					<Select
+						title='Ширина контента'
+						options={contentWidthArr}
+						selected={selectedContentWidth}
+						onChange={setSelectedContentWidth}
+					/>
 
-						<div className={styles.bottomContainer}>
-							<Button title='Сбросить' type='reset' />
-							<Button title='Применить' type='submit' />
-						</div>
-					</form>
-				</aside>
-			)}
+					<div className={styles.bottomContainer}>
+						<Button title='Сбросить' type='reset' />
+						<Button title='Применить' type='submit' />
+					</div>
+				</form>
+			</aside>
 		</div>
 	);
 };
