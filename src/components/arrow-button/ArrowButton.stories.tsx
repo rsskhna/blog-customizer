@@ -10,10 +10,10 @@ export default meta;
 type Story = StoryObj<typeof ArrowButton>;
 
 export const ArrowButtonStory: Story = {
-	render: () => {
+	render: (props) => {
 		return (
 			<>
-				<ArrowButton />
+				<ArrowButton onClick={props.onClick} isOpen={props.isOpen} />
 			</>
 		);
 	},
